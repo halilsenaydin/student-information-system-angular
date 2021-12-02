@@ -9,14 +9,16 @@ import { LoginComponent } from '../app/components/login/login.component';
 import { ProfileComponent } from '../app/components/profile/profile.component';
 import { ProfileStudentComponent } from './components/profile-student/profile-student.component';
 import { ProfileTeacherComponent } from './components/profile-teacher/profile-teacher.component';
+import { DirectMessageComponent } from './components/direct-message/direct-message.component';
 
 const routes: Routes =[
-    { path: '', pathMatch: 'full',  component: ComponentsComponent },
-    { path: 'profile',              component: ProfileComponent },
-    { path: 'profile/student',      component: ProfileStudentComponent },
-    { path: 'profile/teacher',      component: ProfileTeacherComponent },
-    { path: 'login',                component: LoginComponent },
-    { path: 'examples/landing',     component: LandingComponent }
+    { path: '', pathMatch: 'full',    component: ComponentsComponent },
+    { path: 'profile',                component: ProfileComponent },
+    { path: 'profile/student',        component: ProfileStudentComponent },
+    { path: 'profile/teacher',        component: ProfileTeacherComponent },
+    { path: 'login',                  component: LoginComponent },
+    { path: 'profile/direct-message', component: DirectMessageComponent },
+    { path: 'examples/landing',       component: LandingComponent }
 ];
 
 @NgModule({

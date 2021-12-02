@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileStudentComponent } from './profile-student/profile-student.component';
 import { ProfileTeacherComponent } from './profile-teacher/profile-teacher.component';
+import { DirectMessageComponent } from './direct-message/direct-message.component';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { ProfileTeacherComponent } from './profile-teacher/profile-teacher.compo
         LoginComponent,
         ProfileComponent,
         ProfileStudentComponent,
-        ProfileTeacherComponent
+        ProfileTeacherComponent,
+        DirectMessageComponent
     ],
     exports:[ ComponentsComponent ]
 })
