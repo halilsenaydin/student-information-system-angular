@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { ComponentsComponent } from './components.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileStudentComponent } from './profile-student/profile-student.component';
+import { ProfileTeacherComponent } from './profile-teacher/profile-teacher.component';
 
 @NgModule({
     imports: [
@@ -22,7 +24,9 @@ import { ProfileComponent } from './profile/profile.component';
     declarations: [
         ComponentsComponent,
         LoginComponent,
-        ProfileComponent
+        ProfileComponent,
+        ProfileStudentComponent,
+        ProfileTeacherComponent
     ],
     exports:[ ComponentsComponent ]
 })

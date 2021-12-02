@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import * as Rellax from 'rellax';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-profile-student',
+  templateUrl: './profile-student.component.html',
+  styleUrls: ['./profile-student.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileStudentComponent implements OnInit {
 
   zoom: number = 14;
   lat: number = 44.445248;
