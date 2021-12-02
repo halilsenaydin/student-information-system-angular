@@ -12,7 +12,7 @@ import { Lecture } from 'app/models/entities/lecture';
   providedIn: 'root'
 })
 export class LectureService {
-  apiUrl = `${Api.url}/students`;
+  apiUrl = `${Api.url}/lectures`;
 
   constructor(private httpClient: HttpClient) { }
 
