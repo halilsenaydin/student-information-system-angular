@@ -1,3 +1,4 @@
+import { ProfilePicture } from "../entities/profilePicture";
 import { DepartmentDetailDto } from "./departmentDetailDto";
 
 export interface PersonDetailDto{
@@ -7,4 +8,5 @@ export interface PersonDetailDto{
     lastName : string
     email : string
     departmentDetail : DepartmentDetailDto
+    profilePicture:ProfilePicture
 }

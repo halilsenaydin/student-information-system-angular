@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { Api } from "app/constants/api";
+import { TeacherDetailDto } from "app/models/dtoS/teacherDetailDto";
+import { TeacherService } from "app/services/teacher.service";
 import * as Rellax from "rellax";
 
 @Component({
@@ -80,7 +83,9 @@ export class ProfileTeacherComponent implements OnInit {
   focus;
   focus1;
 
-  constructor() {}
+  url:string = `${Api.root}`;
+  teacherDetail:TeacherDetailDto;
+  constructor(private service: TeacherService) {}
 
   ngOnInit() {
     var rellaxHeader = new Rellax(".rellax-header");
@@ -89,6 +94,9 @@ export class ProfileTeacherComponent implements OnInit {
     body.classList.add("profile-page");
     var navbar = document.getElementsByTagName("nav")[0];
     navbar.classList.add("navbar-transparent");
+
+    // Get TeacherDetail
+    this.getTeacher(3);
   }
 
   ngOnDestroy() {
@@ -96,5 +104,11 @@ export class ProfileTeacherComponent implements OnInit {
     body.classList.remove("profile-page");
     var navbar = document.getElementsByTagName("nav")[0];
     navbar.classList.remove("navbar-transparent");
+  }
+
+  getTeacher(id: number) {
+    this.service.getDto(id).subscribe((response) => {
+      this.teacherDetail = response.data;
+    });
   }
 }

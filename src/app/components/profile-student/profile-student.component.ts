@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Api } from "app/constants/api";
 import { StudentDetailDto } from "app/models/dtoS/studentDetailDto";
 import { StudentService } from "app/services/student.service";
 import * as Rellax from "rellax";
@@ -83,6 +84,7 @@ export class ProfileStudentComponent implements OnInit {
   focus;
   focus1;
 
+  url:string = `${Api.root}`;
   studentDetail:StudentDetailDto;
   constructor(private service: StudentService) {}
 
@@ -93,6 +95,9 @@ export class ProfileStudentComponent implements OnInit {
     body.classList.add("profile-page");
     var navbar = document.getElementsByTagName("nav")[0];
     navbar.classList.add("navbar-transparent");
+
+    // Get StudentDetail
+    this.getStudent(1);
   }
 
   ngOnDestroy() {
