@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Api } from "app/constants/api";
 import { TeacherDetailDto } from "app/models/dtoS/teacherDetailDto";
+import { OpenLectureView } from "app/models/views/openLectureView";
+import { OpenLectureService } from "app/services/open-lecture.service";
 import { TeacherService } from "app/services/teacher.service";
 import * as Rellax from "rellax";
 
@@ -85,7 +87,10 @@ export class ProfileTeacherComponent implements OnInit {
 
   url:string = `${Api.root}`;
   teacherDetail:TeacherDetailDto;
-  constructor(private service: TeacherService) {}
+  openLectures:OpenLectureView[];
+  constructor(private service: TeacherService,
+              private openLectureService: OpenLectureService
+    ) {}
 
   ngOnInit() {
     var rellaxHeader = new Rellax(".rellax-header");
@@ -96,7 +101,10 @@ export class ProfileTeacherComponent implements OnInit {
     navbar.classList.add("navbar-transparent");
 
     // Get TeacherDetail
-    this.getTeacher(3);
+    this.getTeacher(1010);
+
+    // Get OpenLectureView
+    this.getOpenLecturesOfTeacherBySemesterId(1010, 2)
   }
 
   ngOnDestroy() {
@@ -110,5 +118,11 @@ export class ProfileTeacherComponent implements OnInit {
     this.service.getDto(id).subscribe((response) => {
       this.teacherDetail = response.data;
     });
+  }
+
+  getOpenLecturesOfTeacherBySemesterId(teacherId:number, semesterId:number){
+    this.openLectureService.getAllViewByTeacherIdAndSemesterId(teacherId, semesterId).subscribe(response=>{
+      this.openLectures = response.data;
+    })
   }
 }

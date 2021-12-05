@@ -7,6 +7,7 @@ import { SingleResponseModel } from 'app/models/responseModels/singleResponseMod
 import { ResponseModel } from 'app/models/responseModels/responseModel';
 import { ExamDetailDto } from 'app/models/dtoS/examDetailDto';
 import { Exam } from 'app/models/entities/exam';
+import { ExamView } from 'app/models/views/examView';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,14 @@ export class ExamService {
 
   getDtoByStudentId(studentId:number): Observable<SingleResponseModel<ExamDetailDto>> {
     return this.httpClient.get<SingleResponseModel<ExamDetailDto>>(`${this.apiUrl}/getdtobystudentid?id=${studentId}`);
+  }
+
+  getAllViewByStudentIdAndSemesterId(studentId:number, semesterId:number): Observable<ListResponseModel<ExamView>> {
+    return this.httpClient.get<ListResponseModel<ExamView>>(`${this.apiUrl}/getallviewbystudentidandsemesterid?studentId=${studentId}&semesterId=${semesterId}`);
+  }
+
+  getViewByStudentIdAndSemesterId(examId:number, studentId:number, semesterId:number): Observable<SingleResponseModel<ExamView>> {
+    return this.httpClient.get<SingleResponseModel<ExamView>>(`${this.apiUrl}/getviewbystudentidandsemesterid?examId=${examId}&studentId=${studentId}&semesterId=${semesterId}`);
   }
 
   // Post

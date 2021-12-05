@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Api } from "app/constants/api";
 import { StudentDetailDto } from "app/models/dtoS/studentDetailDto";
+import { ExamView } from "app/models/views/examView";
+import { ExamService } from "app/services/exam.service";
 import { StudentService } from "app/services/student.service";
 import * as Rellax from "rellax";
 
@@ -86,7 +88,10 @@ export class ProfileStudentComponent implements OnInit {
 
   url:string = `${Api.root}`;
   studentDetail:StudentDetailDto;
-  constructor(private service: StudentService) {}
+  examView:ExamView[];
+  constructor(private studentService: StudentService,
+              private examService: ExamService
+    ) {}
 
   ngOnInit() {
     var rellaxHeader = new Rellax(".rellax-header");
@@ -98,6 +103,9 @@ export class ProfileStudentComponent implements OnInit {
 
     // Get StudentDetail
     this.getStudent(1);
+
+    // Get StudentDetail
+    this.getExamResultsOfStudentBySemesterId(1, 1);
   }
 
   ngOnDestroy() {
@@ -108,8 +116,14 @@ export class ProfileStudentComponent implements OnInit {
   }
 
   getStudent(id: number) {
-    this.service.getDto(id).subscribe((response) => {
+    this.studentService.getDto(id).subscribe((response) => {
       this.studentDetail = response.data;
     });
+  }
+
+  getExamResultsOfStudentBySemesterId(studentId:number, semesterId:number){
+    this.examService.getAllViewByStudentIdAndSemesterId(studentId, semesterId).subscribe(response=>{
+      this.examView = response.data;
+    })
   }
 }

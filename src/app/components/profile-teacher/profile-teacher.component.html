@@ -9,7 +9,7 @@
                 <div class="photo-container">
                     <img src="{{url}}/{{teacherDetail.personDetail.profilePicture.path}}" alt="">
                 </div>
-                <h3 class="title">{{teacherDetail.personDetail.firstName}} {{teacherDetail.personDetail.lastName}}</h3>
+                <h3 class="title">{{teacherDetail.denotation.abbreviation}} {{teacherDetail.personDetail.firstName}} {{teacherDetail.personDetail.lastName}}</h3>
                 <p class="category">Öğretmen</p>
             </div>
         </div>
@@ -29,7 +29,30 @@
                 <div class="col-md-12">
                     <h4 class="title text-center"></h4>
                     <ngb-tabset [justify]="'center'" type="pills"
-                        class="nav nav-pills nav-pills-primary  nav-pills-just-icons justify-content-center tab-space">
+                        class="nav-pills nav-pills-primary  nav-pills-just-icons justify-content-center tab-space">
+                        <!--About Teacher-->
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <i class="now-ui-icons business_badge"></i>
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="text-center">
+                                    <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
+                                        <div class="card-header">{{teacherDetail.denotation.abbreviation}}{{teacherDetail.personDetail.firstName}}
+                                            {{teacherDetail.personDetail.lastName}}</div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                {{teacherDetail.personDetail.departmentDetail.departmentName}} Bölümü Öğretim Elemanı
+                                            </h5>
+                                            <p class="card-text text-left">
+                                                <br />
+                                                <strong>Email: </strong>{{teacherDetail.personDetail.email}} <br />
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
 
                         <!--Lecture Program-->
                         <ngb-tab>
@@ -41,13 +64,30 @@
                             </ng-template>
                         </ngb-tab>
 
-                        <!--Exam-->
+                        <!--Open Lectures-->
                         <ngb-tab>
                             <ng-template ngbTabTitle>
                                 <i class="now-ui-icons education_paper"></i>
                             </ng-template>
                             <ng-template ngbTabContent>
-
+                                <div class="card text-white bg-primary mb-3" style="max-width: 18rem; margin-left: 5px;"
+                                    *ngFor="let openLecture of openLectures">
+                                    <div class="card-header text-center">{{openLecture.lectureCode}}</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            {{openLecture.lectureName}}
+                                        </h5>
+                                        <p class="card-text text-left">
+                                            <strong>Sınıf: </strong>{{openLecture.class}}<br />
+                                            <strong>Ders-Öğretim Türü:
+                                            </strong>{{openLecture.lectureTypeName}}-{{openLecture.educationType}}<br />
+                                            <strong>Bölüm: </strong>{{openLecture.departmentName}}<br />
+                                        </p>
+                                        <div class="container text-center">
+                                            <button type="button" class="btn btn-outline-danger">Ders Detayları</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </ng-template>
                         </ngb-tab>
                     </ngb-tabset>
