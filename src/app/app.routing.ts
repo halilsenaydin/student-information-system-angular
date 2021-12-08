@@ -10,14 +10,17 @@ import { ProfileComponent } from '../app/components/profile/profile.component';
 import { ProfileStudentComponent } from './components/profile-student/profile-student.component';
 import { ProfileTeacherComponent } from './components/profile-teacher/profile-teacher.component';
 import { DirectMessageComponent } from './components/direct-message/direct-message.component';
+import { ProfileAdminComponent } from './components/profile-admin/profile-admin.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes =[
     { path: '', pathMatch: 'full',    component: ComponentsComponent },
     { path: 'profile',                component: ProfileComponent },
-    { path: 'profile/student',        component: ProfileStudentComponent },
+    { path: 'profile/student',        component: ProfileStudentComponent},
     { path: 'profile/teacher',        component: ProfileTeacherComponent },
+    { path: 'profile/admin',          component: ProfileAdminComponent},
+    { path: 'profile/direct-message', component: DirectMessageComponent,  canActivate:[LoginGuard] },
     { path: 'login',                  component: LoginComponent },
-    { path: 'profile/direct-message', component: DirectMessageComponent },
     { path: 'examples/landing',       component: LandingComponent }
 ];
 
