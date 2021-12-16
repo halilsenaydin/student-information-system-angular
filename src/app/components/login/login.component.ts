@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   focus1;
 
   loginForm:FormGroup;
-  roles = { 'teacher': 'profile/teacher', 'student': 'profile/student', 'admin': 'profile/admin' }
+  
   constructor(private authService: AuthService,
     private personService: PersonService,
     private router: Router,
@@ -52,15 +52,18 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       let loginDto: LoginDto = Object.assign({}, this.loginForm.value)
       this.authService.login(loginDto).subscribe(response => {
-        this.personService.getClaimsByUserName(loginDto.password).subscribe(responseForClaims => {
+        this.personService.getClaimsByUserName(loginDto.userName).subscribe(responseForClaims => {
+          const roles = { 'teacher': 'profile/teacher', 'student': 'profile/student', 'admin': 'profile/admin' }
           localStorage.setItem("token",response.data.token)
-          for (const claim of responseForClaims.data.operationClaims) {
-            this.router.navigate([claim])
+       
+          const claims = responseForClaims.data.operationClaims  
+          
+          for (let claim of claims) {
+            console.log(roles[claim["claimName"]])
+            this.router.navigate([roles[claim["claimName"]]])
             break; // Bulunan ilk rolün component'ine yönlendirme yapıldı. 
           }
         })
-      }, error => {
-        console.log("Şifre Yanlış")
       })
     }
 
