@@ -25,6 +25,14 @@ export class TeacherService {
     return this.httpClient.get<SingleResponseModel<TeacherDetailDto>>(`${this.apiUrl}/getdto?id=${id}`);
   }
 
+  getDtoByPersonId(personId:number): Observable<SingleResponseModel<TeacherDetailDto>> {
+    return this.httpClient.get<SingleResponseModel<TeacherDetailDto>>(`${this.apiUrl}/getdtobypersonid?personId=${personId}`);
+  }
+
+  getDtoByUserName(userName:string): Observable<SingleResponseModel<TeacherDetailDto>> {
+    return this.httpClient.get<SingleResponseModel<TeacherDetailDto>>(`${this.apiUrl}/getdtobyusername?userName=${userName}`);
+  }
+
   // Post
   add(entity:Teacher): Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(`${this.apiUrl}/add`, entity);

@@ -14,14 +14,14 @@ import { ProfileAdminComponent } from './components/profile-admin/profile-admin.
 import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes =[
-    { path: '', pathMatch: 'full',    component: ComponentsComponent },
-    { path: 'profile',                component: ProfileComponent },
-    { path: 'profile/student',        component: ProfileStudentComponent},
-    { path: 'profile/teacher',        component: ProfileTeacherComponent },
-    { path: 'profile/admin',          component: ProfileAdminComponent},
-    { path: 'profile/direct-message', component: DirectMessageComponent,  canActivate:[LoginGuard] },
-    { path: 'login',                  component: LoginComponent },
-    { path: 'examples/landing',       component: LandingComponent }
+    { path: '', pathMatch: 'full',         component: ComponentsComponent },
+    { path: 'profile',                     component: ProfileComponent },
+    { path: 'profile/student/:userName',   component: ProfileStudentComponent, canActivate:[LoginGuard]},
+    { path: 'profile/teacher/:userName',   component: ProfileTeacherComponent , canActivate:[LoginGuard]},
+    { path: 'profile/admin/:userName',     component: ProfileAdminComponent, canActivate:[LoginGuard]},
+    { path: 'profile/direct-message',      component: DirectMessageComponent, canActivate:[LoginGuard] },
+    { path: 'login',                       component: LoginComponent },
+    { path: 'examples/landing',            component: LandingComponent }
 ];
 
 @NgModule({

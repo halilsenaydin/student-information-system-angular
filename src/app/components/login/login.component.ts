@@ -53,14 +53,12 @@ export class LoginComponent implements OnInit {
       let loginDto: LoginDto = Object.assign({}, this.loginForm.value)
       this.authService.login(loginDto).subscribe(response => {
         this.personService.getClaimsByUserName(loginDto.userName).subscribe(responseForClaims => {
-          const roles = { 'teacher': 'profile/teacher', 'student': 'profile/student', 'admin': 'profile/admin' }
           localStorage.setItem("token",response.data.token)
-       
-          const claims = responseForClaims.data.operationClaims  
           
+          const roles = { 'teacher': 'profile/teacher', 'student': 'profile/student', 'admin': 'profile/admin' }
+          const claims = responseForClaims.data.operationClaims  
           for (let claim of claims) {
-            console.log(roles[claim["claimName"]])
-            this.router.navigate([roles[claim["claimName"]]])
+            this.router.navigate([roles[claim["claimName"]]+"/"+loginDto.userName])
             break; // Bulunan ilk rolün component'ine yönlendirme yapıldı. 
           }
         })

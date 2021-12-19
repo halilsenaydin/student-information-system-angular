@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Api } from "app/constants/api";
 import { StudentDetailDto } from "app/models/dtoS/studentDetailDto";
 import { ExamView } from "app/models/views/examView";
@@ -90,7 +91,8 @@ export class ProfileStudentComponent implements OnInit {
   studentDetail:StudentDetailDto;
   examView:ExamView[];
   constructor(private studentService: StudentService,
-              private examService: ExamService
+              private examService: ExamService,
+              private activatedRoot:ActivatedRoute
     ) {}
 
   ngOnInit() {
@@ -101,8 +103,10 @@ export class ProfileStudentComponent implements OnInit {
     var navbar = document.getElementsByTagName("nav")[0];
     navbar.classList.add("navbar-transparent");
 
-    // Get StudentDetail
-    this.getStudent(1);
+    // Arrive Params In Address Bar
+    this.activatedRoot.params.subscribe((params)=>{
+      this.getStudent(params["userName"])
+    })
 
     // Get StudentDetail
     this.getExamResultsOfStudentBySemesterId(1, 1);
@@ -115,8 +119,8 @@ export class ProfileStudentComponent implements OnInit {
     navbar.classList.remove("navbar-transparent");
   }
 
-  getStudent(id: number) {
-    this.studentService.getDto(id).subscribe((response) => {
+  getStudent(userName: string) {
+    this.studentService.getDtoByUserName(userName).subscribe((response) => {
       this.studentDetail = response.data;
     });
   }

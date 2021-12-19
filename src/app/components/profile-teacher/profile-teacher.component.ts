@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { Api } from "app/constants/api";
 import { TeacherDetailDto } from "app/models/dtoS/teacherDetailDto";
 import { OpenLectureView } from "app/models/views/openLectureView";
@@ -89,7 +90,8 @@ export class ProfileTeacherComponent implements OnInit {
   teacherDetail:TeacherDetailDto;
   openLectures:OpenLectureView[];
   constructor(private service: TeacherService,
-              private openLectureService: OpenLectureService
+              private openLectureService: OpenLectureService,
+              private activatedRoot:ActivatedRoute
     ) {}
 
   ngOnInit() {
@@ -100,8 +102,10 @@ export class ProfileTeacherComponent implements OnInit {
     var navbar = document.getElementsByTagName("nav")[0];
     navbar.classList.add("navbar-transparent");
 
-    // Get TeacherDetail
-    this.getTeacher(1010);
+    // Arrive Params In Address Bar
+    this.activatedRoot.params.subscribe((params)=>{
+      this.getTeacher(params["userName"]);
+    })
 
     // Get OpenLectureView
     this.getOpenLecturesOfTeacherBySemesterId(1010, 2)
@@ -114,8 +118,8 @@ export class ProfileTeacherComponent implements OnInit {
     navbar.classList.remove("navbar-transparent");
   }
 
-  getTeacher(id: number) {
-    this.service.getDto(id).subscribe((response) => {
+  getTeacher(userName: string) {
+    this.service.getDtoByUserName(userName).subscribe((response) => {
       this.teacherDetail = response.data;
     });
   }
