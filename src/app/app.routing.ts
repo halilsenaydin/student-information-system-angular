@@ -18,7 +18,7 @@ const routes: Routes =[
     { path: 'profile',                     component: ProfileComponent },
     { path: 'profile/student/:userName',   component: ProfileStudentComponent, canActivate:[LoginGuard]},
     { path: 'profile/teacher/:userName',   component: ProfileTeacherComponent , canActivate:[LoginGuard]},
-    { path: 'profile/admin/:userName',     component: ProfileAdminComponent, canActivate:[LoginGuard]},
+    { path: 'profile/admin/:userName',     component: ProfileAdminComponent},
     { path: 'profile/direct-message',      component: DirectMessageComponent, canActivate:[LoginGuard] },
     { path: 'login',                       component: LoginComponent },
     { path: 'examples/landing',            component: LandingComponent }

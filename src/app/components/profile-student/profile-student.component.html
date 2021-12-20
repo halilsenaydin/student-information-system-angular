@@ -37,12 +37,14 @@
                     <ng-template ngbTabContent>
                         <div class="text-center">
                             <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                                <div class="card-header">{{studentDetail.personDetail.firstName}} {{studentDetail.personDetail.lastName}}</div>
+                                <div class="card-header">{{studentDetail.personDetail.firstName}}
+                                    {{studentDetail.personDetail.lastName}}</div>
                                 <div class="card-body">
-                                    <h5 class="card-title">{{studentDetail.personDetail.departmentDetail.departmentName}} Öğrencisi</h5>
+                                    <h5 class="card-title">
+                                        {{studentDetail.personDetail.departmentDetail.departmentName}} Öğrencisi</h5>
                                     <p class="card-text text-left">
-                                        <br/>
-                                        <strong>Email: </strong>{{studentDetail.personDetail.email}} <br/>
+                                        <br />
+                                        <strong>Email: </strong>{{studentDetail.personDetail.email}} <br />
                                         <strong>Sınıf Bilgisi: </strong>{{studentDetail.class}}.Sınıf Aktif Öğrenci
                                     </p>
                                 </div>
@@ -68,34 +70,48 @@
                     </ng-template>
 
                     <ng-template ngbTabContent>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Id</th>
-                                    <th scope="col">Ders Kodu</th>
-                                    <th scope="col">Ders Adı</th>
-                                    <th scope="col">Sınav Türü</th>
-                                    <th scope="col">Etki Oranı</th>
-                                    <th scope="col">Sınav Tarihi</th>
-                                    <th scope="col">İlan Tarihi</th>
-                                    <th scope="col">Not</th>
-                                    <th scope="col">Harf Notu</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let exam of examView">
-                                    <th scope="row">{{exam.id}}</th>
-                                    <td>{{exam.lectureCode}}</td>
-                                    <td>{{exam.lectureName}}</td>
-                                    <td>{{exam.examTypeName}}</td>
-                                    <td>{{exam.effektRate}}</td>
-                                    <td>{{exam.examDate}}</td>
-                                    <td>{{exam.releaseDate}}</td>
-                                    <td>{{exam.point}}</td>
-                                    <td>{{exam.letterGradeName}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="container">
+                            <form [formGroup]="semesterForm">
+                                <div class="form-group">
+                                    <label for="semesterId">Öğrenim Yılını ve Dönemi Seçin </label>
+                                    <select class="form-control" formControlName="semesterId" id="semesterId">
+                                        <option *ngFor="let semester of semesters" [ngValue]=semester.id>
+                                            {{semester.yearName}} {{semester.semesterName}} </option>
+                                    </select>
+                                </div>
+                                <button (click)="showSemesters()"
+                                    class="btn btn-lg btn-primary btn-block">Görüntüle</button>
+                            </form>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Ders Kodu</th>
+                                        <th scope="col">Ders Adı</th>
+                                        <th scope="col">Sınav Türü</th>
+                                        <th scope="col">Etki Oranı</th>
+                                        <th scope="col">Sınav Tarihi</th>
+                                        <th scope="col">İlan Tarihi</th>
+                                        <th scope="col">Not</th>
+                                        <th scope="col">Harf Notu</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let exam of examView">
+                                        <th scope="row">{{exam.id}}</th>
+                                        <td>{{exam.lectureCode}}</td>
+                                        <td>{{exam.lectureName}}</td>
+                                        <td>{{exam.examTypeName}}</td>
+                                        <td>{{exam.effektRate}}</td>
+                                        <td>{{exam.examDate | date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{exam.releaseDate | date: 'dd/MM/yyyy'}}</td>
+                                        <td>{{exam.point}}</td>
+                                        <td>{{exam.letterGradeName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </ng-template>
                 </ngb-tab>
 

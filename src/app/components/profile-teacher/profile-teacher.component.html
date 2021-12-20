@@ -9,7 +9,8 @@
                 <div class="photo-container">
                     <img src="{{url}}/{{teacherDetail.personDetail.profilePicture.path}}" alt="">
                 </div>
-                <h3 class="title">{{teacherDetail.denotation.abbreviation}} {{teacherDetail.personDetail.firstName}} {{teacherDetail.personDetail.lastName}}</h3>
+                <h3 class="title">{{teacherDetail.denotation.abbreviation}} {{teacherDetail.personDetail.firstName}}
+                    {{teacherDetail.personDetail.lastName}}</h3>
                 <p class="category">Öğretmen</p>
             </div>
         </div>
@@ -38,11 +39,13 @@
                             <ng-template ngbTabContent>
                                 <div class="text-center">
                                     <div class="card text-white bg-primary mb-3" style="max-width: 25rem;">
-                                        <div class="card-header">{{teacherDetail.denotation.abbreviation}}{{teacherDetail.personDetail.firstName}}
+                                        <div class="card-header">
+                                            {{teacherDetail.denotation.abbreviation}}{{teacherDetail.personDetail.firstName}}
                                             {{teacherDetail.personDetail.lastName}}</div>
                                         <div class="card-body">
                                             <h5 class="card-title">
-                                                {{teacherDetail.personDetail.departmentDetail.departmentName}} Bölümü Öğretim Elemanı
+                                                {{teacherDetail.personDetail.departmentDetail.departmentName}} Bölümü
+                                                Öğretim Elemanı
                                             </h5>
                                             <p class="card-text text-left">
                                                 <br />
@@ -70,21 +73,38 @@
                                 <i class="now-ui-icons education_paper"></i>
                             </ng-template>
                             <ng-template ngbTabContent>
-                                <div class="card text-white bg-primary mb-3" style="max-width: 18rem; margin-left: 5px;"
-                                    *ngFor="let openLecture of openLectures">
-                                    <div class="card-header text-center">{{openLecture.lectureCode}}</div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">
-                                            {{openLecture.lectureName}}
-                                        </h5>
-                                        <p class="card-text text-left">
-                                            <strong>Sınıf: </strong>{{openLecture.class}}<br />
-                                            <strong>Ders-Öğretim Türü:
-                                            </strong>{{openLecture.lectureTypeName}}-{{openLecture.educationType}}<br />
-                                            <strong>Bölüm: </strong>{{openLecture.departmentName}}<br />
-                                        </p>
-                                        <div class="container text-center">
-                                            <button type="button" class="btn btn-outline-danger">Ders Detayları</button>
+                                <div class="container">
+                                    <form [formGroup]="semesterForm">
+                                        <div class="form-group">
+                                            <label for="semesterId">Öğrenim Yılını ve Dönemi Seçin </label>
+                                            <select class="form-control" formControlName="semesterId" id="semesterId">
+                                                <option *ngFor="let semester of semesters" [ngValue]=semester.id>
+                                                    {{semester.yearName}} {{semester.semesterName}} </option>
+                                            </select>
+                                        </div>
+                                        <button (click)="showOpenLectures()"
+                                            class="btn btn-lg btn-primary btn-block">Görüntüle</button>
+                                    </form>
+
+
+                                    <div class="card text-white bg-primary mb-3"
+                                        style="max-width: 18rem; margin-left: 5px;"
+                                        *ngFor="let openLecture of openLectures">
+                                        <div class="card-header text-center">{{openLecture.lectureCode}}</div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                {{openLecture.lectureName}}
+                                            </h5>
+                                            <p class="card-text text-left">
+                                                <strong>Sınıf: </strong>{{openLecture.class}}<br />
+                                                <strong>Ders-Öğretim Türü:
+                                                </strong>{{openLecture.lectureTypeName}}-{{openLecture.educationType}}<br />
+                                                <strong>Bölüm: </strong>{{openLecture.departmentName}}<br />
+                                            </p>
+                                            <div class="container text-center">
+                                                <button type="button" class="btn btn-outline-danger">Ders
+                                                    Detayları</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

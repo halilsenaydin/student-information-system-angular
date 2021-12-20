@@ -45,13 +45,14 @@ export class NavbarComponent implements OnInit {
         }
     };
   
-    isDocumentation() {
-        var titlee = this.location.prepareExternalUrl(this.location.path());
-        if( titlee === '/documentation' ) {
-            return true;
+    isProfileAdmin() {
+        var title = this.location.prepareExternalUrl(this.location.path());
+        const keys = title.split('/');
+        for (let i = 0; i < keys.length; i++) {
+            if( keys[i] == `admin` ) {
+                return true;
+            }
         }
-        else {
-            return false;
-        }
+        return false;
     }
 }

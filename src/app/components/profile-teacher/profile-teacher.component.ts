@@ -4,8 +4,11 @@ import { Api } from "app/constants/api";
 import { TeacherDetailDto } from "app/models/dtoS/teacherDetailDto";
 import { OpenLectureView } from "app/models/views/openLectureView";
 import { OpenLectureService } from "app/services/open-lecture.service";
+import { SemesterService } from "app/services/semester.service";
 import { TeacherService } from "app/services/teacher.service";
 import * as Rellax from "rellax";
+import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { Semester } from "app/models/entities/semester";
 
 @Component({
   selector: "app-profile-teacher",
@@ -86,13 +89,19 @@ export class ProfileTeacherComponent implements OnInit {
   focus;
   focus1;
 
-  url:string = `${Api.root}`;
-  teacherDetail:TeacherDetailDto;
-  openLectures:OpenLectureView[];
+  semesterForm: FormGroup;
+  isOpenLectureDataLoaded:boolean = false;
+
+  url: string = `${Api.root}`;
+  teacherDetail: TeacherDetailDto;
+  openLectures: OpenLectureView[];
+  semesters: Semester[];
   constructor(private service: TeacherService,
-              private openLectureService: OpenLectureService,
-              private activatedRoot:ActivatedRoute
-    ) {}
+    private openLectureService: OpenLectureService,
+    private activatedRoot: ActivatedRoute,
+    private semesterService: SemesterService,
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit() {
     var rellaxHeader = new Rellax(".rellax-header");
@@ -103,12 +112,12 @@ export class ProfileTeacherComponent implements OnInit {
     navbar.classList.add("navbar-transparent");
 
     // Arrive Params In Address Bar
-    this.activatedRoot.params.subscribe((params)=>{
+    this.activatedRoot.params.subscribe((params) => {
       this.getTeacher(params["userName"]);
     })
 
-    // Get OpenLectureView
-    this.getOpenLecturesOfTeacherBySemesterId(1010, 2)
+    this.getSemesters();
+    this.createSemesterForm();
   }
 
   ngOnDestroy() {
@@ -118,15 +127,37 @@ export class ProfileTeacherComponent implements OnInit {
     navbar.classList.remove("navbar-transparent");
   }
 
+  // Forms
+  createSemesterForm() {
+    this.semesterForm = this.formBuilder.group({
+      semesterId: ["", Validators.required]
+    })
+  }
+
+  // Buttons Event
+  showOpenLectures() {
+    if (this.semesterForm.valid) {
+      this.getOpenLecturesOfTeacherBySemesterId(this.teacherDetail.id, this.semesterForm.value["semesterId"])
+    }
+  }
+
+  // Get Datas
   getTeacher(userName: string) {
     this.service.getDtoByUserName(userName).subscribe((response) => {
       this.teacherDetail = response.data;
     });
   }
 
-  getOpenLecturesOfTeacherBySemesterId(teacherId:number, semesterId:number){
-    this.openLectureService.getAllViewByTeacherIdAndSemesterId(teacherId, semesterId).subscribe(response=>{
+  getOpenLecturesOfTeacherBySemesterId(teacherId: number, semesterId: number) {
+    this.openLectureService.getAllViewByTeacherIdAndSemesterId(teacherId, semesterId).subscribe(response => {
       this.openLectures = response.data;
+      this.isOpenLectureDataLoaded = true;
+    })
+  }
+
+  getSemesters() {
+    this.semesterService.getAll().subscribe(response => {
+      this.semesters = response.data;
     })
   }
 }

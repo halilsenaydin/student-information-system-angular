@@ -30,6 +30,10 @@ export class StudentService {
     return this.httpClient.get<SingleResponseModel<StudentDetailDto>>(`${this.apiUrl}/getdtobyusername?userName=${userName}`);
   }
 
+  getAllCount(): Observable<SingleResponseModel<number>> {
+    return this.httpClient.get<SingleResponseModel<number>>(`${this.apiUrl}/getallcount`);
+  }
+
   // Post
   add(entity:Student): Observable<ResponseModel> {
     return this.httpClient.post<ResponseModel>(`${this.apiUrl}/add`, entity);

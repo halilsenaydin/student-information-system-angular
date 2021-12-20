@@ -2,10 +2,13 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Api } from "app/constants/api";
 import { StudentDetailDto } from "app/models/dtoS/studentDetailDto";
+import { Semester } from "app/models/entities/semester";
 import { ExamView } from "app/models/views/examView";
 import { ExamService } from "app/services/exam.service";
+import { SemesterService } from "app/services/semester.service";
 import { StudentService } from "app/services/student.service";
 import * as Rellax from "rellax";
+import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 
 @Component({
   selector: "app-profile-student",
@@ -87,13 +90,18 @@ export class ProfileStudentComponent implements OnInit {
   focus;
   focus1;
 
-  url:string = `${Api.root}`;
-  studentDetail:StudentDetailDto;
-  examView:ExamView[];
+  semesterForm: FormGroup;
+
+  url: string = `${Api.root}`;
+  studentDetail: StudentDetailDto;
+  examView: ExamView[];
+  semesters: Semester[];
   constructor(private studentService: StudentService,
-              private examService: ExamService,
-              private activatedRoot:ActivatedRoute
-    ) {}
+    private examService: ExamService,
+    private activatedRoot: ActivatedRoute,
+    private semesterService: SemesterService,
+    private formBuilder: FormBuilder,
+  ) { }
 
   ngOnInit() {
     var rellaxHeader = new Rellax(".rellax-header");
@@ -104,12 +112,12 @@ export class ProfileStudentComponent implements OnInit {
     navbar.classList.add("navbar-transparent");
 
     // Arrive Params In Address Bar
-    this.activatedRoot.params.subscribe((params)=>{
+    this.activatedRoot.params.subscribe((params) => {
       this.getStudent(params["userName"])
     })
 
-    // Get StudentDetail
-    this.getExamResultsOfStudentBySemesterId(1, 1);
+    this.getSemesters();
+    this.createSemesterForm();
   }
 
   ngOnDestroy() {
@@ -119,15 +127,36 @@ export class ProfileStudentComponent implements OnInit {
     navbar.classList.remove("navbar-transparent");
   }
 
+  // Forms
+  createSemesterForm() {
+    this.semesterForm = this.formBuilder.group({
+      semesterId: ["", Validators.required]
+    })
+  }
+
+  // Buttons Event
+  showSemesters() {
+    if (this.semesterForm.valid) {
+      this.getExamResultsOfStudentBySemesterId(this.studentDetail.id, this.semesterForm.value["semesterId"])
+    }
+  }
+
+  // Get Datas
   getStudent(userName: string) {
     this.studentService.getDtoByUserName(userName).subscribe((response) => {
       this.studentDetail = response.data;
     });
   }
 
-  getExamResultsOfStudentBySemesterId(studentId:number, semesterId:number){
-    this.examService.getAllViewByStudentIdAndSemesterId(studentId, semesterId).subscribe(response=>{
+  getExamResultsOfStudentBySemesterId(studentId: number, semesterId: number) {
+    this.examService.getAllViewByStudentIdAndSemesterId(studentId, semesterId).subscribe(response => {
       this.examView = response.data;
+    })
+  }
+
+  getSemesters() {
+    this.semesterService.getAll().subscribe(response => {
+      this.semesters = response.data;
     })
   }
 }
