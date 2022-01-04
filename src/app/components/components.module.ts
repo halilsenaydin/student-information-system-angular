@@ -13,6 +13,9 @@ import { ProfileStudentComponent } from './profile-student/profile-student.compo
 import { ProfileTeacherComponent } from './profile-teacher/profile-teacher.component';
 import { DirectMessageComponent } from './direct-message/direct-message.component';
 import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
+import { ModalAddTeacherComponent } from './modals/modal-add-teacher/modal-add-teacher.component';
+import { ModalAddDepartmentComponent } from './modals/modal-add-department/modal-add-department.component';
+import { LectureDetailComponent } from './lecture-detail/lecture-detail.component';
 
 @NgModule({
     imports: [
@@ -31,7 +34,10 @@ import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
         ProfileStudentComponent,
         ProfileTeacherComponent,
         DirectMessageComponent,
-        ProfileAdminComponent
+        ProfileAdminComponent,
+        ModalAddTeacherComponent,
+        ModalAddDepartmentComponent,
+        LectureDetailComponent
     ],
     exports:[ ComponentsComponent ]
 })

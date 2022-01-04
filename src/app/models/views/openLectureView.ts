@@ -9,6 +9,7 @@ export interface OpenLectureView {
     // Props
     yearName: string
     semesterName: string
+    lectureId:number
     lectureName: string
     lectureCode: string
     class: number

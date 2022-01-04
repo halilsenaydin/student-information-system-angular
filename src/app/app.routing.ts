@@ -12,16 +12,18 @@ import { ProfileTeacherComponent } from './components/profile-teacher/profile-te
 import { DirectMessageComponent } from './components/direct-message/direct-message.component';
 import { ProfileAdminComponent } from './components/profile-admin/profile-admin.component';
 import { LoginGuard } from './guards/login.guard';
+import { LectureDetailComponent } from './components/lecture-detail/lecture-detail.component';
 
 const routes: Routes =[
-    { path: '', pathMatch: 'full',         component: ComponentsComponent },
-    { path: 'profile',                     component: ProfileComponent },
-    { path: 'profile/student/:userName',   component: ProfileStudentComponent, canActivate:[LoginGuard]},
-    { path: 'profile/teacher/:userName',   component: ProfileTeacherComponent , canActivate:[LoginGuard]},
-    { path: 'profile/admin/:userName',     component: ProfileAdminComponent},
-    { path: 'profile/direct-message',      component: DirectMessageComponent, canActivate:[LoginGuard] },
-    { path: 'login',                       component: LoginComponent },
-    { path: 'examples/landing',            component: LandingComponent }
+    { path: '', pathMatch: 'full',                      component: ComponentsComponent },
+    { path: 'profile',                                  component: ProfileComponent },
+    { path: 'profile/student/:userName',                component: ProfileStudentComponent, canActivate:[LoginGuard]},
+    { path: 'profile/teacher/:userName',                component: ProfileTeacherComponent , canActivate:[LoginGuard]},
+    { path: 'profile/admin/:userName',                  component: ProfileAdminComponent},
+    { path: 'profile/direct-message',                   component: DirectMessageComponent, canActivate:[LoginGuard] },
+    { path: 'lectures/lecture-detail/:lectureId',       component: LectureDetailComponent, canActivate:[LoginGuard] },
+    { path: 'login',                                    component: LoginComponent },
+    { path: 'examples/landing',                         component: LandingComponent }
 ];
 
 @NgModule({

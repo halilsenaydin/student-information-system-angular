@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Api } from "app/constants/api";
 import { TeacherDetailDto } from "app/models/dtoS/teacherDetailDto";
 import { OpenLectureView } from "app/models/views/openLectureView";
@@ -99,6 +99,7 @@ export class ProfileTeacherComponent implements OnInit {
   constructor(private service: TeacherService,
     private openLectureService: OpenLectureService,
     private activatedRoot: ActivatedRoute,
+    private router:Router,
     private semesterService: SemesterService,
     private formBuilder: FormBuilder,
   ) { }
