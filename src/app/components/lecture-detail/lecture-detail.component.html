@@ -23,7 +23,8 @@
                 </div>
             </div>
             <div class="separator separator-primary"></div>
-            <div class="section-story-overview">
+
+            <div *ngIf="false" class="section-story-overview">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="image-container image-left" style="background-image: url('assets/img/login.jpg')">
@@ -53,7 +54,7 @@
             </div>
         </div>
     </div>
-    <div class="section section-team text-center">
+    <div *ngIf="false" class="section section-team text-center">
         <div class="container">
             <h2 class="title">Here is our team</h2>
             <div class="team">
@@ -97,7 +98,7 @@
             </div>
         </div>
     </div>
-    <div class="section section-contact-us text-center">
+    <div *ngIf="false" class="section section-contact-us text-center">
         <div class="container">
             <h2 class="title">Want to work with us?</h2>
             <p class="description">Your project is very important to us.</p>
@@ -129,38 +130,4 @@
             </div>
         </div>
     </div>
-    <footer class="footer footer-default">
-        <div class="container">
-            <nav>
-                <ul>
-                    <li>
-                        <a href="https://www.creative-tim.com">
-                            Creative Tim
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.creative-tim.com/about-us">
-                            About Us
-                        </a>
-                    </li>
-                    <li>
-                        <a href="http://blog.creative-tim.com">
-                            Blog
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/creativetimofficial/now-ui-kit/blob/master/LICENSE.md">
-                            MIT License
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="copyright">
-                &copy;
-                {{data | date: 'yyyy'}}, Designed by
-                <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by
-                <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
-            </div>
-        </div>
-    </footer>
 </div>

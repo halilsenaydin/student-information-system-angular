@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
           const roles = { 'teacher': 'profile/teacher', 'student': 'profile/student', 'admin': 'profile/admin' }
           const claims = responseForClaims.data.operationClaims  
           for (let claim of claims) {
+            localStorage.setItem("userName", loginDto.userName)
             this.router.navigate([roles[claim["claimName"]]+"/"+loginDto.userName])
             break; // Bulunan ilk rolün component'ine yönlendirme yapıldı. 
           }

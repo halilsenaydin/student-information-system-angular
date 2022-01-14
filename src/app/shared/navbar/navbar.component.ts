@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-navbar',
@@ -10,7 +12,8 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(public location: Location, private element : ElementRef) {
+    constructor(public location: Location, private element : ElementRef, private authService:AuthService,
+        private router:Router) {
         this.sidebarVisible = false;
     }
 
@@ -48,11 +51,24 @@ export class NavbarComponent implements OnInit {
     isProfileAdmin() {
         var title = this.location.prepareExternalUrl(this.location.path());
         const keys = title.split('/');
-        for (let i = 0; i < keys.length; i++) {
-            if( keys[i] == `admin` ) {
-                return true;
+        let len = keys.length
+        if(len>2){
+            for (let i = 0; i < keys.length; i++) {
+                if( keys[i]== `profile` && keys[i+1]==`admin`  ) {
+                    return true;
+                }
             }
         }
+        
         return false;
+    }
+
+    isLogin(){
+        return this.authService.isAuthenticated()
+    }
+
+    routeProfile(){
+        let userName = localStorage.getItem("userName")
+        this.router.navigate([`/profile/admin/${userName}`]) 
     }
 }

@@ -1,0 +1,42 @@
+<div class="page-header" filter-color="orange">
+    <div class="page-header-image" style="background-image:url(assets/img/login.jpg)"></div>
+    <div class="container" style="width: 50%;">
+        <div class="col-md-4 content-center">
+            <div class="card card-login card-plain">
+                <form class="form" method="" [formGroup]="departmentForm">
+                    <div class="content text-center">
+                        <div class="form-group text-center padding">
+                            <label for="denotationId">Akademik Birim</label>
+                            <div class="input-group form-group-no-border input-lg"
+                                [ngClass]="{'input-group-focus':focus===true}">
+
+                                <select formControlName="academicUnitId" type="text" class="form-control" id="academicUnitId">
+                                    <option *ngFor="let academicUnit of academicUnits" [ngValue]=academicUnit.id>
+                                        {{academicUnit.academicUnitName}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center padding">
+                            <label>Bölüm İsmi</label>
+                            <div class="input-group form-group-no-border input-lg"
+                                [ngClass]="{'input-group-focus':focus===true}">
+
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="now-ui-icons education_hat"></i></span>
+                                </div>
+                                <input formControlName="departmentName" id="departmentName" type="departmentName" placeholder="Bölüm İsmi.."
+                                    class="form-control" (focus)="focus1=true" (blur)="focus1=false" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!--Login Button-->
+                <div class="footer text-center">
+                    <a class="btn btn-primary btn-round btn-lg btn-block" (click)="addDepartment()">Bölümü Ekle</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
